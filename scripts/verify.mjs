@@ -1,5 +1,5 @@
-import { mkdirSync, mkdtempSync, writeFileSync, readFileSync, existsSync, rmSync, readdirSync } from 'node:fs';
-import { resolve, relative, join, sep } from 'node:path';
+import { mkdirSync, mkdtempSync, writeFileSync, readFileSync, existsSync, rmSync, readdirSync, copyFileSync } from 'node:fs';
+import { resolve, relative, dirname, join, sep } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { checkLinks } from './check-links.mjs';
@@ -15,6 +15,21 @@ mkdirSync(qaRoot, { recursive: true });
 const temporary = mkdtempSync(join(qaRoot, 'verify-'));
 const fixtures = join(temporary, 'projects');
 mkdirSync(fixtures);
+
+function writeProject(name, content) {
+  const directory = join(fixtures, name);
+  mkdirSync(directory, { recursive: true });
+  writeFileSync(join(directory, 'index.md'), content);
+  return directory;
+}
+
+function clearFixtures() {
+  for (const name of readdirSync(fixtures)) {
+    const directory = resolve(fixtures, name);
+    assert.equal(dirname(directory), fixtures, 'Fixture cleanup must stay inside its temporary directory.');
+    rmSync(directory, { recursive: true, force: true });
+  }
+}
 
 function run(args, env = {}) {
   const result = spawnSync(process.execPath, [astro, ...args], {
@@ -47,32 +62,37 @@ try {
     }
   }
 
-  writeFileSync(join(fixtures, 'without-optional-fields.md'), `---\ntitle: "Check without optional fields"\ndescription: "Temporary test content"\ndraft: false\n---\n## Overview\nTest content.\n`);
-  writeFileSync(join(fixtures, 'empty-fields.md'), `---\ntitle: "Check empty fields"\ndescription: "Temporary test content"\ndraft: false\ndate: ""\ncover: ""\ncoverAlt: ""\ncoverCaption:\ntags: []\nlinks: []\n---\n## Overview\nTest content.\n`);
-  writeFileSync(join(fixtures, 'with-optional-fields.md'), `---\ntitle: "Check optional fields"\ndescription: "Temporary test content"\ndraft: false\ndate: "2026-10-20"\nstatus: "In progress"\ntags: [Test]\ncover: "/favicon.svg"\ncoverAlt: "Test illustration"\ncoverCaption: "Test caption"\nlinks:\n  - label: Local file\n    url: "/favicon.svg"\n  - label: External link\n    url: "https://example.org/"\n---\n## Overview\n![Test image](/favicon.svg)\n\n[About me](/about/)\n\n$$\nx^2\n$$\n`);
+  writeProject('without-optional-fields', `---\ntitle: "Check without optional fields"\ndescription: "Temporary test content"\ndraft: false\n---\n## Overview\nTest content.\n`);
+  writeProject('empty-fields', `---\ntitle: "Check empty fields"\ndescription: "Temporary test content"\ndraft: false\ndate: ""\ncover: ""\ncoverAlt: ""\ncoverCaption:\ntags: []\nlinks: []\n---\n## Overview\nTest content.\n`);
+  writeProject('with-optional-fields', `---\ntitle: "Check optional fields"\ndescription: "Temporary test content"\ndraft: false\ndate: "2026-10-20"\nstatus: "In progress"\ntags: [Test]\ncover: "/favicon.svg"\ncoverAlt: "Test illustration"\ncoverCaption: "Test caption"\nlinks:\n  - label: Local file\n    url: "/favicon.svg"\n  - label: External link\n    url: "https://example.org/"\n---\n## Overview\n![Test image](/favicon.svg)\n\n[About me](/about/)\n\n$$\nx^2\n$$\n`);
+  const imageProject = writeProject('Relative-Images', `---\ntitle: "Check colocated images"\ndescription: "Temporary test content"\ndraft: false\ncover: "./cover illustration.svg"\ncoverAlt: "Test illustration"\n---\n## Overview\n![Local image](<./cover illustration.svg>)\n`);
+  copyFileSync('public/favicon.svg', join(imageProject, 'cover illustration.svg'));
   // Without an explicit draft field, new files must be hidden by default.
-  writeFileSync(join(fixtures, 'hidden-draft.md'), `---\ntitle: "UNPUBLISHED_TEST"\ndescription: "Must not appear in dist"\n---\nUNPUBLISHED_TEST\n`);
+  writeProject('hidden-draft', `---\ntitle: "UNPUBLISHED_TEST"\ndescription: "Must not appear in dist"\n---\nUNPUBLISHED_TEST\n`);
 
   const target = join(temporary, 'optional-fields');
   build('/repository/', fixtures, target);
   assert.ok(!existsSync(join(target, 'projects/hidden-draft')), 'Drafts must not receive a route.');
   const index = readFileSync(join(target, 'index.html'), 'utf8');
   assert.ok(!index.includes('UNPUBLISHED_TEST'), 'Drafts must not appear in the gallery.');
+  assert.ok(index.includes('/repository/projects/relative-images/'), 'Folder names must generate stable project routes without /index.');
+  const localImages = readFileSync(join(target, 'projects/relative-images/index.html'), 'utf8');
+  assert.match(localImages, /src="\/repository\/_astro\//, 'Colocated images must resolve through Astro with the repository base.');
   const minimal = readFileSync(join(target, 'projects/without-optional-fields/index.html'), 'utf8');
   assert.ok(!minimal.includes('<figure'), 'An imageless project must not contain an empty figure.');
   assert.ok(!minimal.includes('id="project-files"'), 'A project without links must not display an empty resource list.');
 
-  for (const filename of readdirSync(fixtures)) rmSync(join(fixtures, filename));
-  writeFileSync(join(fixtures, 'only-draft.md'), `---\ntitle: "UNPUBLISHED_TEST"\ndescription: "Test"\ndraft: true\n---\nDraft.\n`);
+  clearFixtures();
+  writeProject('only-draft', `---\ntitle: "UNPUBLISHED_TEST"\ndescription: "Test"\ndraft: true\n---\nDraft.\n`);
   const emptyTarget = join(temporary, 'empty');
   build('/repository/', fixtures, emptyTarget);
   assert.ok(readFileSync(join(emptyTarget, 'index.html'), 'utf8').includes('No projects have been published yet.'), 'The empty state must be displayed.');
   assert.ok(!existsSync(join(emptyTarget, 'projects/only-draft')), 'A single draft must remain unpublished.');
-  rmSync(join(fixtures, 'only-draft.md'));
+  rmSync(join(fixtures, 'only-draft/index.md'));
   const noFilesTarget = join(temporary, 'no-files');
   build('/repository/', fixtures, noFilesTarget);
   assert.ok(readFileSync(join(noFilesTarget, 'index.html'), 'utf8').includes('No projects have been published yet.'), 'The empty state must also work without Markdown files.');
-  console.log('\nAll checks passed: both URL layouts, optional fields, equations, drafts and empty states.');
+  console.log('\nAll checks passed: both URL layouts, colocated images, optional fields, equations, drafts and empty states.');
 } finally {
   // mkdtempSync creates this unique directory directly inside the verified .qa folder.
   assert.ok(temporary.startsWith(qaRoot + '\\') || temporary.startsWith(qaRoot + '/'));

@@ -5,7 +5,7 @@ status: "Not specified"
 tags: ["Placeholder"]
 draft: false
 example: true
-cover: "/images/example/placeholder.svg"
+cover: "./placeholder.svg"
 coverAlt: "Placeholder illustration of geometric shapes on a drawing grid. It does not show a real project."
 coverCaption: "Placeholder illustration · Replace with an image of your own project."
 ---
@@ -26,7 +26,7 @@ coverCaption: "Placeholder illustration · Replace with an image of your own pro
 
 [Describe the main steps, tools and decisions. Use images to show the process.]
 
-![Placeholder for a build-process image. This illustration does not show a real project.](/images/example/placeholder.svg)
+![Placeholder for a build-process image. This illustration does not show a real project.](./placeholder.svg)
 
 *Placeholder caption: Explain what the image shows and why it matters.*
 

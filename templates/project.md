@@ -7,7 +7,7 @@ status: "Not specified"
 tags: []
 draft: true
 # All image fields are optional. coverAlt is required when cover is provided.
-# cover: "/images/my-project/result.webp"
+# cover: "./result.webp"
 # coverAlt: "[Describe what the image actually shows.]"
 # coverCaption: "[An optional caption and any photo credits.]"
 # Links are optional. Replace placeholders with real addresses before using them.
@@ -16,7 +16,7 @@ links: []
 #   - label: "Source code"
 #     url: "https://REPLACE-WITH-ACTUAL-ADDRESS"
 #   - label: "CAD file"
-#     url: "/files/my-project/model.step"
+#     url: "https://REPLACE-WITH-ACTUAL-CAD-LINK"
 ---
 
 ## At a glance
@@ -25,7 +25,7 @@ links: []
 
 <!-- An optional cover image above this text can show the result.
 You can also add an image here once the file exists:
-![Describe the result shown in the image](/images/my-project/result.webp)
+![Describe the result shown in the image](./result.webp)
 
 *Caption: Explain what the reader is looking at.*
 -->

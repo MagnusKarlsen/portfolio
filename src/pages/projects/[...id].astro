@@ -4,6 +4,7 @@ import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedProjects, formatDate } from '../../lib/projects';
 import { withBase } from '../../../config/site.mjs';
+import ProjectImage from '../../components/ProjectImage.astro';
 import 'katex/dist/katex.min.css';
 
 export const getStaticPaths = (async () => {
@@ -34,7 +35,7 @@ const sections = headings.filter(({ depth }) => depth === 2);
   </header>
   {data.cover && (
     <figure class="cover-figure">
-      <img src={withBase(data.cover)} alt={data.coverAlt} width="1200" height="800" fetchpriority="high" decoding="async" />
+      <ProjectImage src={data.cover} alt={data.coverAlt!} eager />
       {data.coverCaption && <figcaption>{data.coverCaption}</figcaption>}
     </figure>
   )}

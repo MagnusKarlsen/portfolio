@@ -43,19 +43,31 @@ contactLinks: [
 
 ## Add a project
 
-1. Copy `templates/project.md` to `src/content/projects/my-project.md`.
-2. Fill in the title, description and relevant sections. The filename defines `/projects/my-project/`. Use lowercase filenames with hyphens, preferably ASCII.
+Each project has one folder in **`projects/`**, containing `index.md` and its images together. See `projects/README.md` for a quick guide. `Tom1`–`Tom10` are empty drafts ready to fill in.
+
+```text
+projects/
+  underwater-scooter/
+    index.md
+    image.png
+  my-project/
+    index.md
+    result.webp
+```
+
+1. Use one of the `Tom` folders, or create `projects/my-project/` and copy `templates/project.md` into it as `index.md`.
+2. Fill in the title, description and relevant sections. The folder name defines `/projects/my-project/`. Use lowercase folder names with hyphens, preferably ASCII.
 3. Keep `draft: true` while writing. Drafts are absent from the gallery and receive no route, including locally. Set `draft: false` to display the project; this can be temporary for local preview.
 4. Date, status, tags, images and links are optional. Dates use `"YYYY-MM-DD"`. Status can be `Not specified`, `Planned`, `In progress`, `Completed` or `On hold`. Dated projects appear newest first; undated projects come last.
 
-**Remove the example:** Delete `src/content/projects/example.md`, or set `draft: true`. The gallery displays an empty state when nothing is published. Delete `public/images/example/` once no content uses the illustration.
+**Remove the example:** Delete `projects/example/`, or set `draft: true` in its `index.md`. The gallery displays an empty state when nothing is published.
 
 ### Images and files
 
-Place an image in `public/images/my-project/result.webp`. Content URLs omit `public/` and the repository name:
+Place an image beside the project's `index.md`, for example `projects/my-project/result.webp`. Reference it by its relative filename:
 
 ```yaml
-cover: "/images/my-project/result.webp"
+cover: "./result.webp"
 coverAlt: "Describe what the image actually shows."
 coverCaption: "An optional caption and any photo credits."
 ```
@@ -63,12 +75,12 @@ coverCaption: "An optional caption and any photo credits."
 All image fields may be omitted. `coverAlt` is required when `cover` is provided. In the body, use ordinary Markdown:
 
 ```md
-![Describe the image](/images/my-project/build.webp)
+![Describe the image](./build.webp)
 
 *An optional caption.*
 ```
 
-Use WebP/JPEG photographs with moderate file sizes and landscape 3:2 covers where possible. Root-relative Markdown URLs automatically receive the repository prefix. Internal links work similarly: `[About me](/about/)`. Prefer Markdown to raw HTML for URL rewriting.
+PNG, WebP, JPEG and SVG images are supported. Local images are processed by Astro and their dimensions are inferred automatically. Subfolders such as `./photos/build.webp` work too. Internal links use root-relative URLs such as `[About me](/about/)`; the repository prefix is automatic. Prefer Markdown to raw HTML for images.
 
 Optional code, CAD and file links go in metadata. Local files belong in `public/files/my-project/`:
 
@@ -115,4 +127,4 @@ Leave both fields empty for automatic detection. For a custom domain, set its ac
 
 `AGENTS.md` documents the structure and forbids invented facts. `CLAUDE.md` points to those same instructions. Layout lives in `src/layouts/` and `src/components/`; styles in `src/styles/global.css`. Keep project content in Markdown.
 
-References: [Astro on GitHub Pages](https://docs.astro.build/en/guides/deploy/github/) and [Astro Markdown content](https://docs.astro.build/en/guides/markdown-content/).
+References: [Astro on GitHub Pages](https://docs.astro.build/en/guides/deploy/github/), [Astro Markdown content](https://docs.astro.build/en/guides/markdown-content/) and [images in content collections](https://docs.astro.build/en/guides/images/#images-in-content-collections).

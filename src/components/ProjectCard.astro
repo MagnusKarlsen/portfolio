@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { withBase } from '../../config/site.mjs';
 import { formatDate } from '../lib/projects';
+import ProjectImage from './ProjectImage.astro';
 
 interface Props { project: CollectionEntry<'projects'> }
 const { project } = Astro.props;
@@ -11,7 +12,7 @@ const { data } = project;
   <a class="project-card-link" href={withBase(`projects/${project.id}/`)}>
     <div class="project-image">
       {data.cover ? (
-        <img src={withBase(data.cover)} alt={data.coverAlt} width="1200" height="800" loading="lazy" decoding="async" />
+        <ProjectImage src={data.cover} alt={data.coverAlt!} />
       ) : (
         <div class="image-empty"><span aria-hidden="true">＋</span><span>Image coming soon</span></div>
       )}

@@ -13,8 +13,12 @@ const assetPath = z.string().trim().min(1).refine(
 );
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: process.env.PORTFOLIO_PROJECTS_DIR ?? './src/content/projects' }),
-  schema: z.object({
+  loader: glob({
+    pattern: '*/index.md',
+    base: process.env.PORTFOLIO_PROJECTS_DIR ?? './projects',
+    generateId: ({ entry }) => entry.split(/[\\/]/)[0].toLowerCase().replace(/\s+/g, '-'),
+  }),
+  schema: ({ image }) => z.object({
     title: z.string().trim().min(1),
     description: z.string().trim().min(1),
     date: z.preprocess(
@@ -25,7 +29,10 @@ const projects = defineCollection({
     tags: z.array(z.string().trim().min(1)).default([]),
     draft: z.boolean().default(true),
     example: z.boolean().default(false),
-    cover: z.preprocess((value) => value === '' || value === null ? undefined : value, assetPath.optional()),
+    cover: z.preprocess(
+      (value) => value === '' || value === null ? undefined : value,
+      z.union([assetPath, image()]).optional(),
+    ),
     coverAlt: optionalText,
     coverCaption: optionalText,
     links: z.array(z.object({

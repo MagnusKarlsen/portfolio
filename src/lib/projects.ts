@@ -4,7 +4,9 @@ import { getCollection } from 'astro:content';
 export async function getPublishedProjects() {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
   return projects.sort((a, b) =>
-    (b.data.date ?? '').localeCompare(a.data.date ?? '') || a.id.localeCompare(b.id, 'en'),
+    Number(a.data.example) - Number(b.data.example)
+    || (b.data.date ?? '').localeCompare(a.data.date ?? '')
+    || a.id.localeCompare(b.id, 'en'),
   );
 }
 
