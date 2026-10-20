@@ -3,7 +3,7 @@ title: "Example project – add your title"
 description: "[Briefly describe what you made and what it does. This text is a placeholder for your own project.]"
 status: "Not specified"
 tags: ["Placeholder"]
-draft: true
+draft: false
 example: true
 cover: "./placeholder.svg"
 coverAlt: "Placeholder illustration of geometric shapes on a drawing grid. It does not show a real project."
