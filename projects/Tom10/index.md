@@ -5,7 +5,7 @@ description: "Project details and images will be added here."
 # date: "2026-10-20"
 status: "Not specified"
 tags: []
-draft: false
+draft: true
 placeholder: true
 # All image fields are optional. coverAlt is required when cover is provided.
 # cover: "./result.webp"

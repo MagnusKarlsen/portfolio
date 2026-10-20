@@ -8,12 +8,13 @@
 
 @layer base {
   :root {
-    --paper: #0a66c2;
-    --ink: #ffffff;
-    --muted: #e3effa;
-    --accent: #ffffff;
-    --wash: #ffffff14;
-    --line: #ffffff59;
+    --paper: #f3f5f7;
+    --surface: #ffffff;
+    --ink: #1f2937;
+    --muted: #4b5563;
+    --accent: #0a66c2;
+    --wash: #edf4fa;
+    --line: #d7dfe7;
     --sans: Arial, Helvetica, sans-serif;
     color: var(--ink);
     background: var(--paper);
@@ -38,14 +39,7 @@
   .placeholder { color: var(--muted); }
   .eyebrow { color: var(--muted); font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .14em; }
   .project-card, .prose {
-    --paper: #ffffff;
-    --ink: #172b42;
-    --muted: #43576b;
-    --accent: #0a66c2;
-    --wash: #edf4fa;
-    --line: #d5e2ef;
-    color: var(--ink);
-    background: var(--paper);
+    background: var(--surface);
   }
 }
 
@@ -55,7 +49,7 @@
   .site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 108px; border-bottom: 1px solid var(--line); }
   .site-header a { color: var(--ink); text-decoration: none; }
   .brand { display: flex; align-items: center; gap: 13px; font-size: .95rem; font-weight: 600; }
-  .brand-mark { display: grid; place-items: center; width: 36px; height: 36px; background: var(--accent); color: var(--paper); border-radius: 50%; font-size: .65rem; font-weight: 500; letter-spacing: .03em; }
+  .brand-mark { display: grid; place-items: center; width: 36px; height: 36px; background: var(--accent); color: var(--surface); border-radius: 50%; font-size: .65rem; font-weight: 500; letter-spacing: .03em; }
   .site-header nav { display: flex; gap: 32px; font-size: .87rem; }
   .site-header nav a { padding-block: 12px; }
   .site-header nav a[aria-current] { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: .6em; }
@@ -149,7 +143,7 @@
   .text-link span { margin-left: 12px; }
   .project-card { min-width: 0; border: 1px solid var(--line); border-radius: 8px; }
   .project-card-link { display: block; height: 100%; padding: 18px; color: inherit; text-decoration: none; border-radius: 8px; }
-  .project-card-link:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+  .project-card-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
   .project-image { aspect-ratio: 3 / 2; overflow: hidden; background: var(--wash); border: 1px solid var(--line); border-radius: 3px; }
   .project-image img { width: 100%; height: 100%; object-fit: cover; }
   .card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-block: 20px 12px; font-size: .7rem; color: var(--muted); }
@@ -199,7 +193,7 @@
 }
 
 @media print {
-  :root { --paper: #ffffff; --ink: #172b42; --muted: #43576b; --accent: #0a66c2; --wash: #edf4fa; --line: #d5e2ef; }
+  :root { --paper: #ffffff; }
   .site-header nav, .site-footer, .contents, .back-link, .skip-link { display: none; }
   body { background: white; }
   .container { width: 100%; }

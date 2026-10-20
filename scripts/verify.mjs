@@ -87,6 +87,8 @@ try {
   const localImages = readFileSync(join(target, 'projects/relative-images/index.html'), 'utf8');
   assert.match(localImages, /src="\/repository\/_astro\//, 'Colocated images must resolve through Astro with the repository base.');
   const minimal = readFileSync(join(target, 'projects/without-optional-fields/index.html'), 'utf8');
+  const withOptionalFields = readFileSync(join(target, 'projects/with-optional-fields/index.html'), 'utf8');
+  assert.ok(withOptionalFields.includes('katex-mathml'), 'Equations must render even when the example project is hidden.');
   assert.ok(!minimal.includes('<figure'), 'An imageless project must not contain an empty figure.');
   assert.ok(!minimal.includes('id="project-files"'), 'A project without links must not display an empty resource list.');
 
