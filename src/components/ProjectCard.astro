@@ -27,7 +27,6 @@ const { data } = project;
     )}
     <h3>{data.title}<span class="card-arrow" aria-hidden="true">↗</span></h3>
     <p>{data.description}</p>
-    {data.tags.length > 0 && <ul class="tags" role="list">{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
     <span class="card-read">View project <span aria-hidden="true">→</span></span>
   </a>
 </article>

@@ -26,11 +26,10 @@ const sections = headings.filter(({ depth }) => depth === 2);
     <p class="eyebrow">Project documentation</p>
     <h1>{data.title}</h1>
     <p class="page-lead">{data.description}</p>
-    {(data.date || data.status !== 'Not specified' || data.tags.length > 0) && (
+    {(data.date || data.status !== 'Not specified') && (
       <div class="project-facts">
         {data.date && <time datetime={data.date}>{formatDate(data.date)}</time>}
         {data.status !== 'Not specified' && <span>Status: {data.status}</span>}
-        {data.tags.length > 0 && <ul class="tags" role="list">{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
       </div>
     )}
   </header>

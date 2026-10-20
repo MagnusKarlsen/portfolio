@@ -14,7 +14,7 @@ import { profile } from '../data/profile';
       <h2 id="background">A little about me</h2>
       {profile.about.map((paragraph) => <p class="placeholder">{paragraph}</p>)}
       <h2>Areas of interest</h2>
-      <ul class="tags" role="list">{profile.interests.map((interest) => <li>{interest}</li>)}</ul>
+      <p>{profile.interests.join(', ')}</p>
     </section>
     <aside class="contact-panel" id="contact" aria-labelledby="contact-title">
       <p class="eyebrow">Get in touch</p>

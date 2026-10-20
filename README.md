@@ -60,6 +60,8 @@ projects/
 3. Set `draft: true` to hide a project while writing. Drafts are absent from the gallery and receive no route, including locally. Set `draft: false` to display the project. The `Tom` slots already use `draft: false` and `placeholder: true`; remove `placeholder: true` when you replace the template with your real project content.
 4. Date, status, tags, images and links are optional. Dates use `"YYYY-MM-DD"`. Status can be `Not specified`, `Planned`, `In progress`, `Completed` or `On hold`. Real projects appear first, newest dated projects first. Empty slots follow in numeric order, with the example last.
 
+Tags may remain in the Markdown metadata, but are not displayed on the website. The layout uses Arial, a blue background and three project columns on desktop, two on tablets and one on phones.
+
 **Remove the example:** Delete `projects/example/`, or set `draft: true` in its `index.md`. The gallery displays an empty state when nothing is published.
 
 ### Images and files
