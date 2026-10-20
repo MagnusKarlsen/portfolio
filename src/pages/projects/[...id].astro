@@ -1,0 +1,60 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedProjects, formatDate } from '../../lib/projects';
+import { withBase } from '../../../config/site.mjs';
+import 'katex/dist/katex.min.css';
+
+export const getStaticPaths = (async () => {
+  const projects = await getPublishedProjects();
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { project } = Astro.props;
+const { data } = project;
+const { Content, headings } = await render(project);
+const sections = headings.filter(({ depth }) => depth === 2);
+---
+<BaseLayout title={data.title} description={data.description} noindex={data.example}>
+  <header class="project-heading">
+    <a class="back-link" href={`${withBase()}#projects`}>← All projects</a>
+    {data.example && <p class="example-notice"><strong>Example project</strong> · This is a template with placeholder content, not a completed project.</p>}
+    <p class="eyebrow">Project documentation</p>
+    <h1>{data.title}</h1>
+    <p class="page-lead">{data.description}</p>
+    {(data.date || data.status !== 'Not specified' || data.tags.length > 0) && (
+      <div class="project-facts">
+        {data.date && <time datetime={data.date}>{formatDate(data.date)}</time>}
+        {data.status !== 'Not specified' && <span>Status: {data.status}</span>}
+        {data.tags.length > 0 && <ul class="tags" role="list">{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
+      </div>
+    )}
+  </header>
+  {data.cover && (
+    <figure class="cover-figure">
+      <img src={withBase(data.cover)} alt={data.coverAlt} width="1200" height="800" fetchpriority="high" decoding="async" />
+      {data.coverCaption && <figcaption>{data.coverCaption}</figcaption>}
+    </figure>
+  )}
+  <div class="article-layout">
+    {sections.length > 0 && (
+      <aside class="contents">
+        <nav aria-label="On this page">
+          <p class="eyebrow">On this page</p>
+          <ol>{sections.map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}</ol>
+        </nav>
+      </aside>
+    )}
+    <article class="prose project-content">
+      <Content />
+      {data.links.length > 0 && (
+        <section class="project-resources" aria-labelledby="project-files">
+          <h2 id="project-files">Code, CAD and files</h2>
+          <ul>{data.links.map(({ label, url }) => <li><a href={withBase(url)}>{label} <span aria-hidden="true">↗</span></a></li>)}</ul>
+        </section>
+      )}
+    </article>
+  </div>
+</BaseLayout>

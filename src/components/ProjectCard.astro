@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../../config/site.mjs';
+import { formatDate } from '../lib/projects';
+
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const { data } = project;
+---
+<article class="project-card">
+  <a class="project-card-link" href={withBase(`projects/${project.id}/`)}>
+    <div class="project-image">
+      {data.cover ? (
+        <img src={withBase(data.cover)} alt={data.coverAlt} width="1200" height="800" loading="lazy" decoding="async" />
+      ) : (
+        <div class="image-empty"><span aria-hidden="true">＋</span><span>Image coming soon</span></div>
+      )}
+    </div>
+    {(data.example || data.status !== 'Not specified' || data.date) && (
+      <div class="card-meta">
+        {data.example && <span class="badge">Example · placeholder</span>}
+        {!data.example && data.status !== 'Not specified' && <span>{data.status}</span>}
+        {data.date && <time datetime={data.date}>{formatDate(data.date)}</time>}
+      </div>
+    )}
+    <h3>{data.title}<span class="card-arrow" aria-hidden="true">↗</span></h3>
+    <p>{data.description}</p>
+    {data.tags.length > 0 && <ul class="tags" role="list">{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
+    <span class="card-read">View project <span aria-hidden="true">→</span></span>
+  </a>
+</article>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+  <title>Project image placeholder</title>
+  <desc>A simple isometric construction on a light drawing grid. This illustration does not show a real project.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke="#d7ddd6" stroke-width="1"/></pattern>
+  </defs>
+  <path fill="#e9ede6" d="M0 0h1200v800H0z"/>
+  <path fill="url(#grid)" d="M0 0h1200v800H0z"/>
+  <g stroke="#6d8377" stroke-width="2" stroke-linejoin="round">
+    <path d="m365 459 235-136 235 136-235 136z" fill="#d4dfd5"/>
+    <path d="m365 459 235 136v69L365 528z" fill="#bdcebe"/>
+    <path d="m600 595 235-136v69L600 664z" fill="#a6bfac"/>
+    <path d="m462 287 138-80 138 80-138 80z" fill="#f7f8f2"/>
+    <path d="m462 287 138 80v171l-138-80z" fill="#dce5da"/>
+    <path d="m600 367 138-80v171l-138 80z" fill="#b7ccbb"/>
+    <path d="m508 314 92 53 92-53M600 367v171" stroke-dasharray="5 7"/>
+    <path d="m310 493 235 136m-249-117 28-48m207 184 28-48M862 448V259m-14 181h28m-28-172h28" stroke="#8fa394"/>
+  </g>
+  <g fill="#455e50" font-family="system-ui, sans-serif">
+    <text x="60" y="73" font-size="17" letter-spacing="3">IMAGE PLACEHOLDER</text>
+    <text x="60" y="744" font-size="19">Replace with an image of your own project</text>
+    <text x="1140" y="744" font-size="16" text-anchor="end">EXAMPLE</text>
+  </g>
+</svg>

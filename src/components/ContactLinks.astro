@@ -1,0 +1,11 @@
+---
+import { profile } from '../data/profile';
+const links = profile.contactLinks.filter(({ href }) => href.trim());
+---
+{links.length ? (
+  <ul class="contact-links" role="list">
+    {links.map(({ label, href }) => <li><a href={href}>{label}<span aria-hidden="true"> ↗</span></a></li>)}
+  </ul>
+) : (
+  <p class="placeholder">[Contact links will be added here.]</p>
+)}
