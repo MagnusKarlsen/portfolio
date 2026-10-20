@@ -69,6 +69,9 @@ try {
   copyFileSync('public/favicon.svg', join(imageProject, 'cover illustration.svg'));
   // Without an explicit draft field, new files must be hidden by default.
   writeProject('hidden-draft', `---\ntitle: "UNPUBLISHED_TEST"\ndescription: "Must not appear in dist"\n---\nUNPUBLISHED_TEST\n`);
+  for (const name of ['placeholder-slot10', 'placeholder-slot2']) {
+    writeProject(name, `---\ntitle: "${name}"\ndescription: "Temporary empty slot"\ndraft: false\nplaceholder: true\n---\n[Project documentation will be added here.]\n`);
+  }
 
   const target = join(temporary, 'optional-fields');
   build('/repository/', fixtures, target);
@@ -76,6 +79,11 @@ try {
   const index = readFileSync(join(target, 'index.html'), 'utf8');
   assert.ok(!index.includes('UNPUBLISHED_TEST'), 'Drafts must not appear in the gallery.');
   assert.ok(index.includes('/repository/projects/relative-images/'), 'Folder names must generate stable project routes without /index.');
+  assert.ok(index.includes('Coming soon'), 'Published placeholders must be clearly labelled in the gallery.');
+  assert.ok(index.indexOf('/repository/projects/without-optional-fields/') < index.indexOf('/repository/projects/placeholder-slot2/'), 'Real projects must appear before empty slots.');
+  assert.ok(index.indexOf('/repository/projects/placeholder-slot2/') < index.indexOf('/repository/projects/placeholder-slot10/'), 'Empty slots must use numeric ordering.');
+  const placeholder = readFileSync(join(target, 'projects/placeholder-slot2/index.html'), 'utf8');
+  assert.ok(placeholder.includes('Coming soon') && placeholder.includes('noindex, follow'), 'Published placeholders must have their own clearly labelled page, excluded from indexing.');
   const localImages = readFileSync(join(target, 'projects/relative-images/index.html'), 'utf8');
   assert.match(localImages, /src="\/repository\/_astro\//, 'Colocated images must resolve through Astro with the repository base.');
   const minimal = readFileSync(join(target, 'projects/without-optional-fields/index.html'), 'utf8');
@@ -92,7 +100,7 @@ try {
   const noFilesTarget = join(temporary, 'no-files');
   build('/repository/', fixtures, noFilesTarget);
   assert.ok(readFileSync(join(noFilesTarget, 'index.html'), 'utf8').includes('No projects have been published yet.'), 'The empty state must also work without Markdown files.');
-  console.log('\nAll checks passed: both URL layouts, colocated images, optional fields, equations, drafts and empty states.');
+  console.log('\nAll checks passed: both URL layouts, colocated images, optional fields, equations, drafts, visible placeholders and empty states.');
 } finally {
   // mkdtempSync creates this unique directory directly inside the verified .qa folder.
   assert.ok(temporary.startsWith(qaRoot + '\\') || temporary.startsWith(qaRoot + '/'));

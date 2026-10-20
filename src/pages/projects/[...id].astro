@@ -18,10 +18,11 @@ const { data } = project;
 const { Content, headings } = await render(project);
 const sections = headings.filter(({ depth }) => depth === 2);
 ---
-<BaseLayout title={data.title} description={data.description} noindex={data.example}>
+<BaseLayout title={data.title} description={data.description} noindex={data.example || data.placeholder}>
   <header class="project-heading">
     <a class="back-link" href={`${withBase()}#projects`}>← All projects</a>
     {data.example && <p class="example-notice"><strong>Example project</strong> · This is a template with placeholder content, not a completed project.</p>}
+    {data.placeholder && <p class="example-notice"><strong>Coming soon</strong> · This project page is a placeholder for future documentation.</p>}
     <p class="eyebrow">Project documentation</p>
     <h1>{data.title}</h1>
     <p class="page-lead">{data.description}</p>

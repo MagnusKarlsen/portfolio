@@ -5,8 +5,9 @@ export async function getPublishedProjects() {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
   return projects.sort((a, b) =>
     Number(a.data.example) - Number(b.data.example)
+    || Number(a.data.placeholder) - Number(b.data.placeholder)
     || (b.data.date ?? '').localeCompare(a.data.date ?? '')
-    || a.id.localeCompare(b.id, 'en'),
+    || a.id.localeCompare(b.id, 'en', { numeric: true }),
   );
 }
 

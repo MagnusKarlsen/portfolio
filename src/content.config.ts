@@ -29,6 +29,7 @@ const projects = defineCollection({
     tags: z.array(z.string().trim().min(1)).default([]),
     draft: z.boolean().default(true),
     example: z.boolean().default(false),
+    placeholder: z.boolean().default(false),
     cover: z.preprocess(
       (value) => value === '' || value === null ? undefined : value,
       z.union([assetPath, image()]).optional(),

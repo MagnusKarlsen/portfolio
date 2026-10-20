@@ -17,9 +17,10 @@ const { data } = project;
         <div class="image-empty"><span aria-hidden="true">＋</span><span>Image coming soon</span></div>
       )}
     </div>
-    {(data.example || data.status !== 'Not specified' || data.date) && (
+    {(data.example || data.placeholder || data.status !== 'Not specified' || data.date) && (
       <div class="card-meta">
         {data.example && <span class="badge">Example · placeholder</span>}
+        {data.placeholder && <span class="badge">Coming soon</span>}
         {!data.example && data.status !== 'Not specified' && <span>{data.status}</span>}
         {data.date && <time datetime={data.date}>{formatDate(data.date)}</time>}
       </div>

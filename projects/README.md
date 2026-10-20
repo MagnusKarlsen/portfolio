@@ -21,6 +21,6 @@ To start another project:
 3. Open `index.md` and change the title, description and text.
 4. Drop images into that same folder. Add a cover with `cover: "./image.jpg"` and fill in `coverAlt`.
 5. Add more images to the text with `![Describe the image](./another-image.jpg)`.
-6. Keep `draft: true` while writing. Set `draft: false` when you want the project to appear on the website, then commit and push to GitHub.
+6. Remove `placeholder: true` once you add your real project content. Keep `draft: false` to show it, or set `draft: true` to hide it while writing. Commit and push to GitHub to update the website.
 
-The ten `Tom` folders are drafts and contain no project claims. Remove unused headings and placeholders as you write. Images can also live in a subfolder, for example `./photos/assembly.jpg`.
+The ten `Tom` folders are visible on the home page as **Coming soon** and each opens its own project page. They contain no project claims. Remove unused headings and placeholders as you write. Images can also live in a subfolder, for example `./photos/assembly.jpg`.

@@ -1,11 +1,12 @@
 ---
 title: "Tom4"
-description: "[Briefly explain what the project is and why it is useful, without requiring specialist knowledge.]"
+description: "Project details and images will be added here."
 # Enter an actual date as YYYY-MM-DD, or leave the field out.
 # date: "2026-10-20"
 status: "Not specified"
 tags: []
-draft: true
+draft: false
+placeholder: true
 # All image fields are optional. coverAlt is required when cover is provided.
 # cover: "./result.webp"
 # coverAlt: "[Describe what the image actually shows.]"
