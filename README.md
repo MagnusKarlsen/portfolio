@@ -43,7 +43,7 @@ contactLinks: [
 
 ## Add a project
 
-Each project has one folder in **`projects/`**, containing `index.md` and its images together. See `projects/README.md` for a quick guide and the eight named project slots, ready to fill in. They stay visible with their titles until photos and notes are added.
+Each project has one folder in **`projects/`**, containing `index.md` and its images together. See `projects/README.md` for a quick guide and the eight named project slots, ready to fill in. They stay visible while photos and notes are added. `Tom9` and `Tom10` are extra visible empty slots for future projects.
 
 ```text
 projects/
@@ -81,6 +81,21 @@ All image fields may be omitted. `coverAlt` is required when `cover` is provided
 
 *An optional caption.*
 ```
+
+For several images together, add a `gallery` list to the metadata:
+
+```yaml
+gallery:
+  - src: "./detail.jpg"
+    alt: "Describe what this image actually shows."
+    caption: "An optional caption."
+  - src: "./another-view.jpg"
+    alt: "Describe this view."
+```
+
+The cover and gallery appear together on the project page. Photos can be enlarged, with Previous/Next buttons, arrow keys and Escape to close. Image links still work with JavaScript disabled. If there is no cover, the first gallery image is used on the home page. Remove unused image fields rather than linking to missing files.
+
+The spark-gap project uses `video-frame.jpg`, a still extracted from the supplied `IMG_1779.MOV`. The original video stays in its project folder. Builds only need the extracted image; no video tools are required.
 
 PNG, WebP, JPEG and SVG images are supported. Local images are processed by Astro and their dimensions are inferred automatically. Subfolders such as `./photos/build.webp` work too. Internal links use root-relative URLs such as `[About me](/about/)`; the repository prefix is automatic. Prefer Markdown to raw HTML for images.
 

@@ -67,6 +67,8 @@ try {
   writeProject('with-optional-fields', `---\ntitle: "Check optional fields"\ndescription: "Temporary test content"\ndraft: false\ndate: "2026-10-20"\nstatus: "In progress"\ntags: [Test]\ncover: "/favicon.svg"\ncoverAlt: "Test illustration"\ncoverCaption: "Test caption"\nlinks:\n  - label: Local file\n    url: "/favicon.svg"\n  - label: External link\n    url: "https://example.org/"\n---\n## Overview\n![Test image](/favicon.svg)\n\n[About me](/about/)\n\n$$\nx^2\n$$\n`);
   const imageProject = writeProject('Relative-Images', `---\ntitle: "Check colocated images"\ndescription: "Temporary test content"\ndraft: false\ncover: "./cover illustration.svg"\ncoverAlt: "Test illustration"\n---\n## Overview\n![Local image](<./cover illustration.svg>)\n`);
   copyFileSync('public/favicon.svg', join(imageProject, 'cover illustration.svg'));
+  const galleryProject = writeProject('gallery-only', `---\ntitle: "Check gallery without cover"\ndescription: "Temporary test content"\ndraft: false\ngallery:\n  - src: "./photo one.svg"\n    alt: "First gallery image"\n  - src: "/favicon.svg"\n    alt: "Second gallery image"\n    caption: "Optional gallery caption"\n---\n## Overview\nGallery fixture.\n`);
+  copyFileSync('public/favicon.svg', join(galleryProject, 'photo one.svg'));
   // Without an explicit draft field, new files must be hidden by default.
   writeProject('hidden-draft', `---\ntitle: "UNPUBLISHED_TEST"\ndescription: "Must not appear in dist"\n---\nUNPUBLISHED_TEST\n`);
   for (const name of ['placeholder-slot10', 'placeholder-slot2']) {
@@ -86,10 +88,15 @@ try {
   assert.ok(placeholder.includes('Coming soon') && placeholder.includes('noindex, follow'), 'Published placeholders must have their own clearly labelled page, excluded from indexing.');
   const localImages = readFileSync(join(target, 'projects/relative-images/index.html'), 'utf8');
   assert.match(localImages, /src="\/repository\/_astro\//, 'Colocated images must resolve through Astro with the repository base.');
+  const galleryOnly = readFileSync(join(target, 'projects/gallery-only/index.html'), 'utf8');
+  assert.equal((galleryOnly.match(/<a\b[^>]*\bdata-gallery-item(?=\s|=|>)/g) ?? []).length, 2, 'Gallery images must appear without a cover and without optional captions.');
+  assert.ok(galleryOnly.includes('Optional gallery caption') && galleryOnly.includes('data-gallery-next'), 'The gallery must provide captions and photo navigation.');
+  assert.match(galleryOnly, /href="\/repository\/_astro\//, 'Local gallery links must use optimized assets with the repository prefix.');
   const minimal = readFileSync(join(target, 'projects/without-optional-fields/index.html'), 'utf8');
   const withOptionalFields = readFileSync(join(target, 'projects/with-optional-fields/index.html'), 'utf8');
   assert.ok(withOptionalFields.includes('katex-mathml'), 'Equations must render even when the example project is hidden.');
   assert.ok(!minimal.includes('<figure'), 'An imageless project must not contain an empty figure.');
+  assert.ok(!minimal.includes('data-project-gallery'), 'A project without images must not render gallery controls.');
   assert.ok(!minimal.includes('id="project-files"'), 'A project without links must not display an empty resource list.');
 
   clearFixtures();

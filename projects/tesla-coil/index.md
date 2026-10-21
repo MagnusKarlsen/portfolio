@@ -1,12 +1,15 @@
 ---
 title: "Tesla coil"
-description: "Project details and images will be added here."
+description: "Project photos are available below. Documentation will be added later."
 # Enter an actual date as YYYY-MM-DD, or leave the field out.
 # date: "2026-10-20"
 status: "Not specified"
 tags: []
 draft: false
 placeholder: true
+cover: "./IMG_1038.JPEG"
+coverAlt: "Tall copper-coloured coil beside wiring and electronic components on a transparent base."
+coverCaption: "Photograph of the Tesla coil assembly."
 # All image fields are optional. coverAlt is required when cover is provided.
 # cover: "./result.webp"
 # coverAlt: "[Describe what the image actually shows.]"

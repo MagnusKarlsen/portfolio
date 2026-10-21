@@ -36,6 +36,11 @@ const projects = defineCollection({
     ),
     coverAlt: optionalText,
     coverCaption: optionalText,
+    gallery: z.array(z.object({
+      src: z.union([assetPath, image()]),
+      alt: z.string().trim().min(1),
+      caption: optionalText,
+    })).default([]),
     links: z.array(z.object({
       label: z.string().trim().min(1),
       url: assetPath,

@@ -1,12 +1,19 @@
 ---
 title: "Tesla coil (spark gap)"
-description: "Project details and images will be added here."
+description: "Project photos are available below. Documentation will be added later."
 # Enter an actual date as YYYY-MM-DD, or leave the field out.
 # date: "2026-10-20"
 status: "Not specified"
 tags: []
 draft: false
 placeholder: true
+cover: "./video-frame.jpg"
+coverAlt: "Still from the project video showing a Tesla coil outdoors at night with a purple electrical discharge near its top."
+coverCaption: "Frame from the project video."
+gallery:
+  - src: "./IMG_2089.JPEG"
+    alt: "A person beside a tall copper-coloured coil on a wooden base outdoors."
+    caption: "Outdoor view of the coil and its base."
 # All image fields are optional. coverAlt is required when cover is provided.
 # cover: "./result.webp"
 # coverAlt: "[Describe what the image actually shows.]"

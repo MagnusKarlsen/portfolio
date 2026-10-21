@@ -4,9 +4,16 @@ description: "A modified underwater scooter design with 3D-printed parts, redesi
 status: "Not specified"
 tags: ["3D printing", "Mechanics", "Electronics", "Composites"]
 draft: false
-cover: "./image.png"
-coverAlt: "CAD view of an underwater scooter with two curved handles, a cylindrical housing and a ducted propeller."
-coverCaption: "CAD view of the underwater scooter design."
+cover: "./IMG_6404.JPEG"
+coverAlt: "Blue and yellow underwater scooter with a pointed housing and a circular propeller guard."
+coverCaption: "Photograph of the underwater scooter."
+gallery:
+  - src: "./IMG_6401.JPEG"
+    alt: "Another view of the blue and yellow scooter, showing a black handle and the propeller inside its guard."
+    caption: "Handle and propeller-guard detail."
+  - src: "./image.png"
+    alt: "CAD view of an underwater scooter with two curved handles, a cylindrical housing and a ducted propeller."
+    caption: "CAD view of the underwater scooter design."
 links:
   - label: "Design on Thingiverse used as the starting point"
     url: "https://www.thingiverse.com/thing:416888"

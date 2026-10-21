@@ -1,12 +1,19 @@
 ---
 title: "Taser / spark stick"
-description: "Project details and images will be added here."
+description: "Project photos are available below. Documentation will be added later."
 # Enter an actual date as YYYY-MM-DD, or leave the field out.
 # date: "2026-10-20"
 status: "Not specified"
 tags: []
 draft: false
 placeholder: true
+cover: "./IMG_1097.JPEG"
+coverAlt: "Long wooden assembly with taped wiring, exposed circuit boards and batteries, lying on a white table."
+coverCaption: "Project overview."
+gallery:
+  - src: "./IMG_1039.JPEG"
+    alt: "Close-up of rows of blue and black electronic components connected to a circuit board on a wooden table."
+    caption: "Component detail."
 # All image fields are optional. coverAlt is required when cover is provided.
 # cover: "./result.webp"
 # coverAlt: "[Describe what the image actually shows.]"

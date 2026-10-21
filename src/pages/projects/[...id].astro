@@ -4,7 +4,7 @@ import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedProjects, formatDate } from '../../lib/projects';
 import { withBase } from '../../../config/site.mjs';
-import ProjectImage from '../../components/ProjectImage.astro';
+import ProjectGallery from '../../components/ProjectGallery.astro';
 import 'katex/dist/katex.min.css';
 
 export const getStaticPaths = (async () => {
@@ -17,12 +17,16 @@ const { project } = Astro.props;
 const { data } = project;
 const { Content, headings } = await render(project);
 const sections = headings.filter(({ depth }) => depth === 2);
+const photos = [
+  ...(data.cover ? [{ src: data.cover, alt: data.coverAlt!, caption: data.coverCaption }] : []),
+  ...data.gallery,
+];
 ---
 <BaseLayout title={data.title} description={data.description} noindex={data.example || data.placeholder}>
   <header class="project-heading">
     <a class="back-link" href={`${withBase()}#projects`}>← All projects</a>
     {data.example && <p class="example-notice"><strong>Example project</strong> · This is a template with placeholder content, not a completed project.</p>}
-    {data.placeholder && <p class="example-notice"><strong>Coming soon</strong> · This project page is a placeholder for future documentation.</p>}
+    {data.placeholder && <p class="example-notice"><strong>{photos.length ? 'Documentation in progress' : 'Coming soon'}</strong> · Project notes will be added as this page is documented.</p>}
     <h1>{data.title}</h1>
     <p class="page-lead">{data.description}</p>
     {(data.date || data.status !== 'Not specified') && (
@@ -32,12 +36,7 @@ const sections = headings.filter(({ depth }) => depth === 2);
       </div>
     )}
   </header>
-  {data.cover && (
-    <figure class="cover-figure">
-      <ProjectImage src={data.cover} alt={data.coverAlt!} eager />
-      {data.coverCaption && <figcaption>{data.coverCaption}</figcaption>}
-    </figure>
-  )}
+  {photos.length > 0 && <ProjectGallery images={photos} />}
   <div class="article-layout">
     {sections.length > 0 && (
       <aside class="contents">

@@ -10,6 +10,10 @@ draft: true
 # cover: "./result.webp"
 # coverAlt: "[Describe what the image actually shows.]"
 # coverCaption: "[An optional caption and any photo credits.]"
+# gallery:
+#   - src: "./detail.webp"
+#     alt: "[Describe what the detail image actually shows.]"
+#     caption: "[Optional caption.]"
 # Links are optional. Replace placeholders with real addresses before using them.
 links: []
 # links:
