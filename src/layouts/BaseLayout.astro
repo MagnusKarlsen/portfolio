@@ -12,7 +12,7 @@ const { title, description = profile.description, noindex = false } = Astro.prop
 const pageTitle = title ? `${title} · ${profile.name}` : `${profile.name} · Project portfolio`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
 const isAbout = Astro.url.pathname === withBase('about/');
-const initials = profile.name.split(/\s+/).map((part) => part[0]).slice(0, 2).join('');
+const isHome = Astro.url.pathname === withBase();
 ---
 <!doctype html>
 <html lang="en">
@@ -20,7 +20,7 @@ const initials = profile.name.split(/\s+/).map((part) => part[0]).slice(0, 2).jo
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f3f5f7" />
+    <meta name="theme-color" content="#ffffff" />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <title>{pageTitle}</title>
     {canonical && <link rel="canonical" href={canonical} />}
@@ -28,23 +28,20 @@ const initials = profile.name.split(/\s+/).map((part) => part[0]).slice(0, 2).jo
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="site-header container">
+    {!isHome && <header class="site-header container">
       <a class="brand" href={withBase()} aria-label={`${profile.name} – home`}>
-        <span class="brand-mark" aria-hidden="true">{initials}</span>
         <span>{profile.name}</span>
       </a>
       <nav aria-label="Main navigation">
-        <a href={withBase()} aria-current={!isAbout ? 'page' : undefined}>Projects</a>
+        <a href={`${withBase()}#projects`} aria-current={!isAbout ? 'page' : undefined}>Projects</a>
         <a href={withBase('about/')} aria-current={isAbout ? 'page' : undefined}>About me</a>
       </nav>
-    </header>
-    <main id="main-content" class="container" tabindex="-1">
+    </header>}
+    <main id="main-content" class:list={['container', { 'home-page': isHome }]} tabindex="-1">
       <slot />
     </main>
     <footer class="site-footer container">
       <span>{profile.name}</span>
-      <span>Personal project portfolio</span>
-      <a href={withBase('about/#contact')}>Contact</a>
     </footer>
   </body>
 </html>

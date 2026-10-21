@@ -5,21 +5,18 @@ import { profile } from '../data/profile';
 ---
 <BaseLayout title="About me">
   <header class="page-heading">
-    <p class="eyebrow">Background and contact</p>
     <h1>About me</h1>
     <p class="page-lead">{profile.name}<br />{profile.education}</p>
   </header>
   <div class="about-grid">
     <section class="prose about-text" aria-labelledby="background">
-      <h2 id="background">A little about me</h2>
+      <h2 id="background">Background</h2>
+      <p>{profile.introduction}</p>
       {profile.about.map((paragraph) => <p class="placeholder">{paragraph}</p>)}
-      <h2>Areas of interest</h2>
-      <p>{profile.interests.join(', ')}</p>
     </section>
-    <aside class="contact-panel" id="contact" aria-labelledby="contact-title">
-      <p class="eyebrow">Get in touch</p>
+    {profile.contactLinks.some(({ href }) => href.trim()) && <aside class="contact-panel" id="contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Contact</h2>
       <ContactLinks />
-    </aside>
+    </aside>}
   </div>
 </BaseLayout>

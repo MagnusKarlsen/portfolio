@@ -79,7 +79,7 @@ try {
   const index = readFileSync(join(target, 'index.html'), 'utf8');
   assert.ok(!index.includes('UNPUBLISHED_TEST'), 'Drafts must not appear in the gallery.');
   assert.ok(index.includes('/repository/projects/relative-images/'), 'Folder names must generate stable project routes without /index.');
-  assert.ok(index.includes('Coming soon'), 'Published placeholders must be clearly labelled in the gallery.');
+  assert.ok(index.includes('Photo to come'), 'Imageless project cards must display a clear photo placeholder.');
   assert.ok(index.indexOf('/repository/projects/without-optional-fields/') < index.indexOf('/repository/projects/placeholder-slot2/'), 'Real projects must appear before empty slots.');
   assert.ok(index.indexOf('/repository/projects/placeholder-slot2/') < index.indexOf('/repository/projects/placeholder-slot10/'), 'Empty slots must use numeric ordering.');
   const placeholder = readFileSync(join(target, 'projects/placeholder-slot2/index.html'), 'utf8');

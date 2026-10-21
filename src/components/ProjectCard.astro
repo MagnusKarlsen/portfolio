@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { withBase } from '../../config/site.mjs';
-import { formatDate } from '../lib/projects';
 import ProjectImage from './ProjectImage.astro';
 
 interface Props { project: CollectionEntry<'projects'> }
@@ -14,19 +13,15 @@ const { data } = project;
       {data.cover ? (
         <ProjectImage src={data.cover} alt={data.coverAlt!} />
       ) : (
-        <div class="image-empty"><span aria-hidden="true">＋</span><span>Image coming soon</span></div>
+        <div class="image-empty"><span>Photo to come</span></div>
       )}
     </div>
-    {(data.example || data.placeholder || data.status !== 'Not specified' || data.date) && (
-      <div class="card-meta">
-        {data.example && <span class="badge">Example · placeholder</span>}
-        {data.placeholder && <span class="badge">Coming soon</span>}
-        {!data.example && data.status !== 'Not specified' && <span>{data.status}</span>}
-        {data.date && <time datetime={data.date}>{formatDate(data.date)}</time>}
-      </div>
-    )}
-    <h3>{data.title}<span class="card-arrow" aria-hidden="true">↗</span></h3>
-    <p>{data.description}</p>
-    <span class="card-read">View project <span aria-hidden="true">→</span></span>
+    <div class="card-content">
+      <h3>{data.title}</h3>
+      {data.example ? (
+        <p class="card-note">Example project with placeholder content.</p>
+      ) : !data.placeholder && <p>{data.description}</p>}
+      <span class="card-read">View project <span aria-hidden="true">→</span></span>
+    </div>
   </a>
 </article>

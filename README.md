@@ -33,7 +33,7 @@ Without global Node, use `powershell -ExecutionPolicy Bypass -File .\scripts\loc
 
 ## Edit your profile
 
-Edit **`src/data/profile.ts`** for your name, education, introduction, biography, interests and contact links. An empty contact list displays a placeholder. Add real addresses only:
+Edit **`src/data/profile.ts`** for your name, education, portrait settings, introduction, biography, interests and contact links. Replace **`src/assets/profile/portrait.jpg`** to update the photo. Astro optimizes it automatically; the original desktop photo remains untouched. An empty contact list is hidden. Add real addresses only:
 
 ```ts
 contactLinks: [
@@ -43,7 +43,7 @@ contactLinks: [
 
 ## Add a project
 
-Each project has one folder in **`projects/`**, containing `index.md` and its images together. See `projects/README.md` for a quick guide and the eight named slots marked **Coming soon**, ready to fill in.
+Each project has one folder in **`projects/`**, containing `index.md` and its images together. See `projects/README.md` for a quick guide and the eight named project slots, ready to fill in. They stay visible with their titles until photos and notes are added.
 
 ```text
 projects/
@@ -60,7 +60,7 @@ projects/
 3. Set `draft: true` to hide a project while writing. Drafts are absent from the gallery and receive no route, including locally. Set `draft: false` to display the project. The named slots already use `draft: false` and `placeholder: true`; remove `placeholder: true` when you replace the template with your real project content.
 4. Date, status, tags, images and links are optional. Dates use `"YYYY-MM-DD"`. Status can be `Not specified`, `Planned`, `In progress`, `Completed` or `On hold`. Real projects appear first, newest dated projects first. Placeholder projects follow alphabetically by folder name, with the example last.
 
-Tags may remain in the Markdown metadata, but are not displayed on the website. The layout uses Arial, a light grey background, white cards, dark text and blue accents, with three project columns on desktop, two on tablets and one on phones.
+Tags may remain in the Markdown metadata, but are not displayed on the website. The layout uses Arial, a plain white background, dark text and subtle blue links. A compact portrait/name/About me section is followed by the projects, with three columns on desktop, two on tablets and one on phones. Empty contact links, coursework and internship sections are not displayed.
 
 **Remove the example:** Delete `projects/example/`, or set `draft: true` in its `index.md`. The gallery displays an empty state when nothing is published.
 

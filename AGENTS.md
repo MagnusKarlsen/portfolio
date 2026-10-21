@@ -13,7 +13,7 @@ A static Astro website in English, prepared for GitHub Pages. Keep the implement
 
 ## Structure
 
-- `src/data/profile.ts`: name, education, introduction, biography, interests and contact links.
+- `src/data/profile.ts`: name, education, portrait settings, introduction, biography, interests and contact links. The portrait lives in `src/assets/profile/portrait.jpg` and uses Astro's image pipeline.
 - `config/site.mjs`: all public URL settings (`origin`, `base`), automatic GitHub Pages detection and `withBase()`.
 - `projects/<project>/index.md`: project content and validated metadata. Keep project images in that same folder and use relative paths such as `./image.png`.
 - `projects/tesla-coil/`, `tesla-coil-spark-gap/`, `taser-spark-stick/`, `robot-hand/`, `solar-panel/`, `fuel-cell/`, `electrolysis/` and `night-vision/`: visible project slots named by the user, with placeholder content only. The example remains visible too. Keep `placeholder: true` until real content replaces the template. Do not hide these entries unless explicitly asked; styling changes must not change publication state.
@@ -33,7 +33,7 @@ A static Astro website in English, prepared for GitHub Pages. Keep the implement
 - Use `withBase()` for internal links and assets in Astro. The Markdown plugin prefixes root-relative Markdown URLs automatically.
 - Let Astro resolve relative project images through Markdown and the content schema's `image()` helper. Do not reintroduce separate content and image folders or copy project Markdown into `public/`.
 - Do not hardcode repository names, account URLs or contact details in components or the workflow.
-- Preserve the user's light grey background (`#f3f5f7`), white content cards, dark grey text, LinkedIn-blue accents (`#0a66c2`), Arial typography, readable contrast, keyboard navigation and restrained design. Show three project columns on desktop, two on tablets and one on phones. Do not display project tags.
+- Preserve the user's plain white background, compact portrait/name/About me introduction, dark text, subtle blue links and Arial typography. The home page proceeds directly to the project gallery, with three columns on desktop, two on tablets and one on phones. Do not display tags, badges, interest panels, coursework or internship sections. Empty contact links must render nothing; GitHub, LinkedIn and other links will be added later by the user.
 - Equations render during the build with remark-math and KaTeX. No external CDN is required.
 - Run `npm run check`, `npm run build` and `npm run check:links` after changes. For schema, route, draft or URL changes, run `npm run verify`; it includes these checks and leaves a fresh production build.
 - On Windows without Node on PATH: `powershell -ExecutionPolicy Bypass -File .\scripts\local.ps1 -Task verify`.
