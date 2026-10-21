@@ -16,7 +16,7 @@ A static Astro website in English, prepared for GitHub Pages. Keep the implement
 - `src/data/profile.ts`: name, education, introduction, biography, interests and contact links.
 - `config/site.mjs`: all public URL settings (`origin`, `base`), automatic GitHub Pages detection and `withBase()`.
 - `projects/<project>/index.md`: project content and validated metadata. Keep project images in that same folder and use relative paths such as `./image.png`.
-- `projects/Tom1/` through `projects/Tom10/`: visible empty project slots, published at the user's explicit request, along with the example. Keep `placeholder: true` until real content replaces the template. Do not hide these entries unless explicitly asked; styling changes must not change publication state.
+- `projects/tesla-coil/`, `tesla-coil-spark-gap/`, `taser-spark-stick/`, `robot-hand/`, `solar-panel/`, `fuel-cell/`, `electrolysis/` and `night-vision/`: visible project slots named by the user, with placeholder content only. The example remains visible too. Keep `placeholder: true` until real content replaces the template. Do not hide these entries unless explicitly asked; styling changes must not change publication state.
 - `templates/project.md`: reusable project template, outside the content collection.
 - `src/content.config.ts`: content schema. Optional cover images require alternative text when provided.
 - `src/lib/projects.ts`: shared filtering and sorting. Gallery and project routes must use the same draft filter.

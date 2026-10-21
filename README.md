@@ -43,7 +43,7 @@ contactLinks: [
 
 ## Add a project
 
-Each project has one folder in **`projects/`**, containing `index.md` and its images together. See `projects/README.md` for a quick guide. `Tom1`–`Tom10` are visible empty slots marked **Coming soon**, ready to fill in.
+Each project has one folder in **`projects/`**, containing `index.md` and its images together. See `projects/README.md` for a quick guide and the eight named slots marked **Coming soon**, ready to fill in.
 
 ```text
 projects/
@@ -55,10 +55,10 @@ projects/
     result.webp
 ```
 
-1. Use one of the `Tom` folders, or create `projects/my-project/` and copy `templates/project.md` into it as `index.md`.
+1. Fill in the matching named project folder, or create `projects/my-project/` and copy `templates/project.md` into it as `index.md`.
 2. Fill in the title, description and relevant sections. The folder name defines `/projects/my-project/`. Use lowercase folder names with hyphens, preferably ASCII.
-3. Set `draft: true` to hide a project while writing. Drafts are absent from the gallery and receive no route, including locally. Set `draft: false` to display the project. The `Tom` slots already use `draft: false` and `placeholder: true`; remove `placeholder: true` when you replace the template with your real project content.
-4. Date, status, tags, images and links are optional. Dates use `"YYYY-MM-DD"`. Status can be `Not specified`, `Planned`, `In progress`, `Completed` or `On hold`. Real projects appear first, newest dated projects first. Empty slots follow in numeric order, with the example last.
+3. Set `draft: true` to hide a project while writing. Drafts are absent from the gallery and receive no route, including locally. Set `draft: false` to display the project. The named slots already use `draft: false` and `placeholder: true`; remove `placeholder: true` when you replace the template with your real project content.
+4. Date, status, tags, images and links are optional. Dates use `"YYYY-MM-DD"`. Status can be `Not specified`, `Planned`, `In progress`, `Completed` or `On hold`. Real projects appear first, newest dated projects first. Placeholder projects follow alphabetically by folder name, with the example last.
 
 Tags may remain in the Markdown metadata, but are not displayed on the website. The layout uses Arial, a light grey background, white cards, dark text and blue accents, with three project columns on desktop, two on tablets and one on phones.
 
